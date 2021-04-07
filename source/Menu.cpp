@@ -9,14 +9,14 @@
 #include <chrono>
 #include <thread>
 
-Menu::Menu() : transform(), loop_times(1)
+Menu::Menu() : transform(), loop_times(1), plot()
 {
     std::cout << "Please enter rectangle (vertexes)" << std::endl;
     for (int i = 0; i < 4; ++i)
         std::cin >> rectangle[i];
 }
 
-Menu::Menu(Rectangle<double> rec) : transform(), rectangle(rec), loop_times(1)
+Menu::Menu(Rectangle<double> rec) : transform(), rectangle(rec), loop_times(1), plot()
 {}
 
 void Menu::setRotation(double r)
@@ -66,7 +66,6 @@ void Menu::print_options() const
 
 void Menu::run()
 {
-    GNUPlot plot;
     std::cout << "Starting drawing: " << std::endl;
     for (int i = 0; i < loop_times; ++i)
     {
@@ -74,5 +73,7 @@ void Menu::run()
         plot.draw(rectangle);
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
+    transform.clear();
+    loop_times = 1;
 }
 

@@ -14,6 +14,7 @@ class Transform
 private:
     Vector2D<double> tra;
     Matrix22<double> rot;
+    Matrix22<double> rotArZero;
     double sca;
 public:
     Transform();
@@ -23,6 +24,7 @@ public:
     friend bool operator==(const Transform& first, const Transform& second);
 
     Transform& rotate(double radian);
+    Transform& rotateAroundZero(double radian);
     Transform& translate(Vector2D<double> translation);
     Transform& scale(double _scale);
     Transform& clear();

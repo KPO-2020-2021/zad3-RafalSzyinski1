@@ -75,3 +75,11 @@ TEST (Transform_test, equal_operator)
     EXPECT_FALSE(t1 == t3);
 }
 
+TEST (Transform_test, rotate_around_zero)
+{
+    Transform t1;
+    t1.rotateAroundZero(180);
+    Rectangle<double> a(0, 0, 1, 0, 1, 1, 0, 1);
+    t1.transform(a);
+    EXPECT_EQ(a, Rectangle<double>(0, 0, -1, 0, -1, -1, 0, -1));
+}

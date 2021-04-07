@@ -25,6 +25,13 @@ Transform& Transform::rotate(double radian)
     return *this;
 }
 
+Transform& Transform::rotateAroundZero(double radian)
+{
+    double rad = (M_PI / 180) * radian;
+    rotArZero = Matrix22<double>(std::cos(rad), -std::sin(rad), std::sin(rad), std::cos(rad));
+    return *this;
+}
+
 Transform& Transform::translate(Vector2D<double> translation)
 {
     tra = translation;
@@ -41,6 +48,7 @@ Transform& Transform::clear()
 {
     tra = Vector2D<double>(0, 0);
     rot = Matrix22<double>(1, 0, 0, 1);
+    rotArZero = Matrix22<double>(1, 0, 0, 1);
     sca = 1.0;
     return *this;
 }
@@ -65,7 +73,7 @@ void Transform::transform(Rectangle<double>& rec) const
         transform(i);
     center = rec.getCenter();
     for(int i = 0; i < 4; i++)
-        rec[i] = vertex[i] + center;
+        rec[i] = rotArZero * (vertex[i] + center);
 }
 
 

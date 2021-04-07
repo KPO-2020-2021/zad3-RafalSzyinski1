@@ -6,6 +6,7 @@
 #define ROTATION2D_MENU_H
 
 #include "Transform.h"
+#include "GNUPlot.h"
 
 class Menu
 {
@@ -13,6 +14,7 @@ private:
     Transform transform;
     Rectangle<double> rectangle;
     int loop_times;
+    GNUPlot plot;
 public:
     Menu();
     explicit Menu(Rectangle<double> rec);
