@@ -76,3 +76,13 @@ TEST (Rectangle_test, centerOfMass)
     Rectangle<double> a(1, 2, 2, 1, 4, 2, 3, 3);
     EXPECT_EQ(a.getCenter(), Vector2D<double>(2.5, 2));
 }
+
+TEST (Rectangle_test, sizeOfSides)
+{
+    Rectangle<double> a(0, 0, 2, 0, 2, 3, 0, 3);
+    auto b = a.getSizeOfSides();
+    EXPECT_EQ(b[0], 2);
+    EXPECT_EQ(b[1], 3);
+    EXPECT_EQ(b[2], 2);
+    EXPECT_EQ(b[3], 3);
+}

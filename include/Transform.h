@@ -27,37 +27,8 @@ public:
     Transform& scale(double _scale);
     Transform& clear();
 
-    template<typename T>
-    void transform(Rectangle<T>& rec) const;
-
-    template<typename T>
-    void transform(Vector2D<T>& vec) const;
+    void transform(Rectangle<double>& rec) const;
+    void transform(Vector2D<double>& vec) const;
 };
-
-
-//first rotate then translate then scale
-template<typename T>
-void Transform::transform(Vector2D<T>& vec) const
-{
-    vec = rot * vec;
-    vec = tra + vec;
-    vec[0] = vec[0] * sca;
-    vec[1] = vec[1] * sca;
-}
-
-//first rotate then translate then scale
-template<typename T>
-void Transform::transform(Rectangle<T>& rec) const
-{
-    Vector2D<T> center = rec.getCenter();
-    std::vector<Vector2D<T>> vertex;
-    for (int i = 0; i < 4; i++)
-        vertex.push_back(rec[i] - center);
-    for(auto& i : vertex)
-        transform(i);
-    center = rec.getCenter();
-    for(int i = 0; i < 4; i++)
-        rec[i] = vertex[i] + center;
-}
 
 #endif //ROTATION2D_TRANSFORM_H

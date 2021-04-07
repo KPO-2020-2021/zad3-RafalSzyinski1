@@ -8,8 +8,6 @@
 #include <string>
 #include <fstream>
 #include <iostream>
-#include <thread>
-#include <chrono>
 #include "lacze_do_gnuplota.hh"
 
 #include "Rectangle.h"

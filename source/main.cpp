@@ -3,10 +3,12 @@
 #include "Transform.h"
 
 #include <atomic>
+#include <thread>
+#include <chrono>
 
+//TODO menu
 std::atomic<bool> wait;
 
-//TODO better waiting functions
 void waiting()
 {
     std::cin.get();

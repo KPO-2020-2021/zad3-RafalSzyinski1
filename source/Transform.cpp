@@ -44,3 +44,28 @@ Transform& Transform::clear()
     sca = 1.0;
     return *this;
 }
+
+//first rotate then translate then scale
+void Transform::transform(Vector2D<double>& vec) const
+{
+    vec = rot * vec;
+    vec = tra + vec;
+    vec[0] = vec[0] * sca;
+    vec[1] = vec[1] * sca;
+}
+
+//first rotate then translate then scale
+void Transform::transform(Rectangle<double>& rec) const
+{
+    Vector2D<double> center = rec.getCenter();
+    std::vector<Vector2D<double>> vertex(4);
+    for (int i = 0; i < 4; i++)
+        vertex[i] = rec[i] - center;
+    for(auto& i : vertex)
+        transform(i);
+    center = rec.getCenter();
+    for(int i = 0; i < 4; i++)
+        rec[i] = vertex[i] + center;
+}
+
+

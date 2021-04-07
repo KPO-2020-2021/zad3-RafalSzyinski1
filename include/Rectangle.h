@@ -8,6 +8,7 @@
 #include "Vector2D.h"
 #include "Matrix22.h"
 
+#include <array>
 
 template<typename T>
 class Rectangle
@@ -43,6 +44,7 @@ public:
     const Vector2D<T>& operator[](int index) const;
 
     constexpr Vector2D<T> getCenter() const;
+    std::array<double, 4> getSizeOfSides() const;
 };
 
 template<typename T>
@@ -130,6 +132,18 @@ constexpr Vector2D<T> Rectangle<T>::getCenter() const
     ret = ret + a + b + c + d;
     ret[0] = ret[0] / 4;
     ret[1] = ret[1] / 4;
+    return ret;
+}
+
+template<typename T>
+std::array<double, 4> Rectangle<T>::getSizeOfSides() const
+{
+    std::array<double, 4> ret{0};
+    ret[0] = (a - b).abs();
+    ret[1] = (a - d).abs();
+    ret[2] = (c - d).abs();
+    ret[3] = (c - b).abs();
+
     return ret;
 }
 
