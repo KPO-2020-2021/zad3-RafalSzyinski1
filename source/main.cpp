@@ -1,39 +1,67 @@
 #include <iostream>
-#include "GNUPlot.h"
-#include "Transform.h"
-
-#include <atomic>
-#include <thread>
-#include <chrono>
-
-//TODO menu
-std::atomic<bool> wait;
-
-void waiting()
-{
-    std::cin.get();
-    wait.store(true);
-}
-
+#include "Menu.h"
 
 int main()
 {
-    GNUPlot plot;
-    Rectangle<double> a(0, 0, 1, 0, 1, 1, 0, 1);
-    Transform t1;
-    t1.rotate(1);
-
-    wait.store(false);
-    std::thread t(waiting);
-    while(true)
+    Menu menu;
+    char option;
+    bool exit = false;
+    while (!exit)
     {
-        t1.transform(a);
-        plot.draw(a);
-        for (int i = 0; i < 4; ++i)
-            t1.transform(a[i]);
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-        if (wait.load())
-            break;
+        menu.print_options();
+        std::cin >> option;
+
+        switch (option)
+        {
+            case 'R':
+            {
+                double r;
+                std::cout << "Angle (radian): ";
+                std::cin >> r;
+                menu.setRotation(r);
+            }break;
+            case 'T':
+            {
+                Vector2D<double> t;
+                std::cout << "Translate vector (x y):";
+                std::cin >> t;
+                menu.setTranslate(t);
+            }break;
+            case 'S':
+            {
+                double s;
+                std::cout << "Scale: ";
+                std::cin >> s;
+                menu.setScale(s);
+            }break;
+            case 'L':
+            {
+                int l;
+                std::cout << "Number of loops: ";
+                std::cin >> l;
+                menu.setLoop(l);
+            }break;
+            case 'P':
+            {
+                menu.print_vertex();
+            }break;
+            case 'p':
+            {
+                menu.print_sides();
+            }break;
+            case 'r':
+            {
+                menu.run();
+            }break;
+            case 'E':
+            {
+                exit = true;
+            }break;
+            default:
+            {
+                std::cout << "This option is not available" << std::endl;
+            }break;
+        }
+
     }
-    t.join();
 }
