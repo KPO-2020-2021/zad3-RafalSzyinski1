@@ -35,3 +35,6 @@
 # Build directory
 build/*
 .vscode/
+
+/cmake-build-debug/
+/.idea/
