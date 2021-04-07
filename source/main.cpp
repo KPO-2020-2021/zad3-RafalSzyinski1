@@ -1,67 +1,37 @@
 #include <iostream>
-#include <fstream>
-#include "lacze_do_gnuplota.hh"
-
-#include "Rectangle.h"
+#include "GNUPlot.h"
 #include "Transform.h"
 
-#include <chrono>
-#include <thread>
-#include <cmath>
+#include <atomic>
 
-using namespace std;
+std::atomic<bool> wait;
+
+//TODO better waiting functions
+void waiting()
+{
+    std::cin.get();
+    wait.store(true);
+}
+
 
 int main()
 {
-    char  Opcja;
-    PzG::LaczeDoGNUPlota  Lacze;
-    std::fstream i("../data/vertex.xy", std::ios::in | std::ios::out | std::ios::trunc);
-
-
-    Rectangle<double> a(1, 2, 2, 1, 4, 2, 3, 3);
-
-    i << a << std::endl;
-    i << a[0] << std::endl;
-
-    i.close();
-
+    GNUPlot plot;
+    Rectangle<double> a(0, 0, 1, 0, 1, 1, 0, 1);
     Transform t1;
-    t1.rotate(2).scale(1.001);
+    t1.rotate(1);
 
-    Lacze.DodajNazwePliku("../data/vertex.xy")
-            .ZmienSposobRys(PzG::SR_Ciagly)
-            .ZmienSzerokosc(10).ZmienKolor(0xFF0000);
-    Lacze.DodajNazwePliku("../data/vertex.xy")
-            .ZmienSposobRys(PzG::SR_Punktowy)
-            .ZmienSzerokosc(2).ZmienKolor(0xFF0000);
-
-    Matrix22<double> b(std::cos(M_PI / 180), -std::sin(M_PI / 180), std::sin(M_PI / 180), std::cos(M_PI / 180));
-
-
-    while (true)
+    wait.store(false);
+    std::thread t(waiting);
+    while(true)
     {
-        Lacze.Inicjalizuj();  // Tutaj startuje gnuplot.
-
-        Lacze.ZmienTrybRys(PzG::TR_2D);
-        Lacze.UstawZakresY(-5,5);
-        Lacze.UstawZakresX(-5,5);
-        Lacze.Rysuj();
-
-
         t1.transform(a);
-        a = b * a;
-
-        i.open("../data/vertex.xy", std::ios::in | std::ios::out | std::ios::trunc);
-
-        i << a << std::endl;
-        i << a[0] << std::endl;
-
-        i.close();
-
-        std::this_thread::sleep_for(chrono::milliseconds (500));
+        plot.draw(a);
+        for (int i = 0; i < 4; ++i)
+            t1.transform(a[i]);
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+        if (wait.load())
+            break;
     }
-
-
-    cout << "Aby zakonczyc nacisnij ENTER ..." << flush;
-    cin >> noskipws >> Opcja;
+    t.join();
 }

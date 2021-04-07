@@ -4,6 +4,7 @@ project(Rotation2D)
 set(EXECUTABLE ${CMAKE_PROJECT_NAME}_run)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS "-pthread")
 
 add_subdirectory(lib/GNUPlot)
 add_subdirectory(test)
