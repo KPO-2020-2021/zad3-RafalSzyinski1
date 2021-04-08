@@ -24,6 +24,11 @@ void Menu::setRotation(double r)
     transform.rotate(r);
 }
 
+void Menu::setRotationAroundZero(double r)
+{
+    transform.rotateAroundZero(r);
+}
+
 void Menu::setTranslate(Vector2D<double> t)
 {
     transform.translate(t);
@@ -55,12 +60,14 @@ void Menu::print_options() const
 {
     std::cout << "Menu:" << std::endl;
     std::cout << "R - set Rotation" << std::endl;
+    std::cout << "Z - set Rotation Around Zero" << std::endl;
     std::cout << "T - set Translate" << std::endl;
     std::cout << "S - set Scale" << std::endl;
     std::cout << "L - set Number Of Loops" << std::endl;
     std::cout << "P - print vertexes" << std::endl;
     std::cout << "p - print size of sides" << std::endl;
     std::cout << "r - run" << std::endl;
+    std::cout << "s - simulate" << std::endl;
     std::cout << "E - exit" << std::endl;
 }
 
@@ -77,3 +84,14 @@ void Menu::run()
     loop_times = 1;
 }
 
+
+void Menu::simulate()
+{
+    for (int i = 0; i < loop_times; ++i)
+    {
+        transform.transform(rectangle);
+    }
+    transform.clear();
+    loop_times = 1;
+    std::cout << "End of simulation";
+}

@@ -20,6 +20,13 @@ int main()
                 std::cin >> r;
                 menu.setRotation(r);
             }break;
+            case 'Z':
+            {
+                double r;
+                std::cout << "Angle (radian): ";
+                std::cin >> r;
+                menu.setRotationAroundZero(r);
+            }break;
             case 'T':
             {
                 Vector2D<double> t;
@@ -52,6 +59,10 @@ int main()
             case 'r':
             {
                 menu.run();
+            }break;
+            case 's':
+            {
+                menu.simulate();
             }break;
             case 'E':
             {

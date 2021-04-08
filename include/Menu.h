@@ -20,6 +20,7 @@ public:
     explicit Menu(Rectangle<double> rec);
 
     void setRotation(double r);
+    void setRotationAroundZero(double r);
     void setTranslate(Vector2D<double> t);
     void setScale(double s);
     void setLoop(int l);
@@ -27,6 +28,7 @@ public:
     void print_sides() const;
     void print_options() const;
     void run();
+    void simulate();
 };
 
 
