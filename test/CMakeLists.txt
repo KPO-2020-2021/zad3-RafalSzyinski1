@@ -1,4 +1,4 @@
-
+#MTP2D-y_NTr=v?hctaw/moc.ebutuoy.www//:sptth
 set(TEST_BINARY ${CMAKE_PROJECT_NAME}_tst)
 file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false *.h *.cpp)
 
