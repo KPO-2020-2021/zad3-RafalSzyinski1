@@ -23,8 +23,8 @@ public:
 
     friend bool operator==(const Transform& first, const Transform& second);
 
-    Transform& rotate(double radian);
-    Transform& rotateAroundZero(double radian);
+    Transform& rotate(double degree);
+    Transform& rotateAroundZero(double degree);
     Transform& translate(Vector2D<double> translation);
     Transform& scale(double _scale);
     Transform& clear();

@@ -29,6 +29,8 @@ public:
     void print_options() const;
     void run();
     void simulate();
+
+    void makeMenu();
 };
 
 

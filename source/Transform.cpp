@@ -18,32 +18,57 @@ bool operator==(const Transform& first, const Transform& second)
     return false;
 }
 
-Transform& Transform::rotate(double radian)
+/**
+ * Method make and save rotation matrix
+ * @param degree angle in degrees
+ * @return this object
+ */
+Transform& Transform::rotate(double degree)
 {
-    double rad = (M_PI / 180) * radian;
+    double rad = (M_PI / 180) * degree;
     rot = Matrix22<double>(std::cos(rad), -std::sin(rad), std::sin(rad), std::cos(rad));
     return *this;
 }
 
-Transform& Transform::rotateAroundZero(double radian)
+/**
+ * Method make and save rotation matrix
+ * @param degree angle in degrees
+ * @return this object
+ */
+Transform& Transform::rotateAroundZero(double degree)
 {
-    double rad = (M_PI / 180) * radian;
+    double rad = (M_PI / 180) * degree;
     rotArZero = Matrix22<double>(std::cos(rad), -std::sin(rad), std::sin(rad), std::cos(rad));
     return *this;
 }
 
+/**
+ * Method save translate vector
+ * @param translation vector of translation
+ * @return this object
+ */
 Transform& Transform::translate(Vector2D<double> translation)
 {
     tra = translation;
     return *this;
 }
 
+/**
+ * Method save scale
+ * @param _scale scale relative to the center
+ * @return this object
+ */
 Transform& Transform::scale(double _scale)
 {
     sca = _scale;
     return *this;
 }
 
+
+/**
+ * Clear every transform
+ * @return this object
+ */
 Transform& Transform::clear()
 {
     tra = Vector2D<double>(0, 0);
@@ -53,7 +78,11 @@ Transform& Transform::clear()
     return *this;
 }
 
-//first rotate then translate then scale
+/**
+ * Method transform vector
+ * Order of transformation: rotate, translate, scale
+ * @param vec Vector2D to transform
+ */
 void Transform::transform(Vector2D<double>& vec) const
 {
     vec = rot * vec;
@@ -62,7 +91,11 @@ void Transform::transform(Vector2D<double>& vec) const
     vec[1] = vec[1] * sca;
 }
 
-//first rotate then translate then scale
+/**
+ * Method transform rectangle
+ * Order of transformation: rotate, translate, scale, rotateAroundZero
+ * @param rec Rectangle to transform
+ */
 void Transform::transform(Rectangle<double>& rec) const
 {
     Vector2D<double> center = rec.getCenter();

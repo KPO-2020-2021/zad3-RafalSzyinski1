@@ -117,6 +117,9 @@ constexpr Vector2D<T> Vector2D<T>::operator-(const Vector2D<T>& other) const
     return Vector2D<T>(x - other.x, y - other.y);
 }
 
+/**
+ * @return length of vector
+ */
 template<typename T>
 constexpr double Vector2D<T>::abs() const
 {

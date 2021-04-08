@@ -125,6 +125,10 @@ const Vector2D<T> & Rectangle<T>::operator[](int index) const
         throw std::out_of_range("Out of rectangle range");
 }
 
+
+/**
+ * @return vector with center of mass
+ */
 template<typename T>
 constexpr Vector2D<T> Rectangle<T>::getCenter() const
 {
@@ -135,6 +139,10 @@ constexpr Vector2D<T> Rectangle<T>::getCenter() const
     return ret;
 }
 
+
+/**
+ * @return array with length of 4 side of rectangle
+ */
 template<typename T>
 std::array<double, 4> Rectangle<T>::getSizeOfSides() const
 {

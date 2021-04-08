@@ -95,3 +95,77 @@ void Menu::simulate()
     loop_times = 1;
     std::cout << "End of simulation";
 }
+
+void Menu::makeMenu()
+{
+    char option;
+    bool exit = false;
+    while (!exit)
+    {
+        print_options();
+        std::cin >> option;
+
+        switch (option)
+        {
+            case 'R':
+            {
+                double r;
+                std::cout << "Angle (degree): ";
+                std::cin >> r;
+                setRotation(r);
+            }break;
+            case 'Z':
+            {
+                double r;
+                std::cout << "Angle (degree): ";
+                std::cin >> r;
+                setRotationAroundZero(r);
+            }break;
+            case 'T':
+            {
+                Vector2D<double> t;
+                std::cout << "Translate vector (x y):";
+                std::cin >> t;
+                setTranslate(t);
+            }break;
+            case 'S':
+            {
+                double s;
+                std::cout << "Scale: ";
+                std::cin >> s;
+                setScale(s);
+            }break;
+            case 'L':
+            {
+                int l;
+                std::cout << "Number of loops: ";
+                std::cin >> l;
+                setLoop(l);
+            }break;
+            case 'P':
+            {
+                print_vertex();
+            }break;
+            case 'p':
+            {
+                print_sides();
+            }break;
+            case 'r':
+            {
+                run();
+            }break;
+            case 's':
+            {
+                simulate();
+            }break;
+            case 'E':
+            {
+                exit = true;
+            }break;
+            default:
+            {
+                std::cout << "This option is not available" << std::endl;
+            }break;
+        }
+    }
+}
