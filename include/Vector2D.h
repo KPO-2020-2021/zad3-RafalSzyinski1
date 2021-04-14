@@ -7,8 +7,9 @@
 
 #include <iostream>
 #include <cmath>
+#include <iomanip>
 
-#define DEC_PLACE 3
+#define DEC_PLACE 10
 
 template<typename T>
 class Matrix22;
@@ -72,7 +73,7 @@ bool operator==(const Vector2D<P>& first, const Vector2D<P>& second)
 template<typename P>
 std::ostream& operator<<(std::ostream& os, const Vector2D<P>& vector)
 {
-    os << vector.x << " " << vector.y;
+    os << std::fixed << std::setprecision(10) <<  vector.x << " " << vector.y;
     return os;
 }
 

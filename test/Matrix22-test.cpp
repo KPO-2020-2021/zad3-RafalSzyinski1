@@ -12,7 +12,7 @@ TEST (Matrix22_test, equal_operator)
     EXPECT_TRUE(a == Matrix22<int>(2, 2, 2, 2));
     EXPECT_FALSE(a == Matrix22<int>(1, 2, 2, 2));
 
-    Matrix22<double> b(2.0001, 2.0001, 2.0002, 2.0003);
+    Matrix22<double> b(2.00000000000000001, 2.000000000000001, 2.000000000000002, 2.000000000000003);
     EXPECT_TRUE(b == Matrix22<double>(2., 2., 2., 2.));
     EXPECT_FALSE(b == Matrix22<double>(2.1, 2.1, 2.1, 2.1));
 }
@@ -42,10 +42,10 @@ TEST (Matrix22_test, index_operator)
 
 TEST (Matrix22_test, ostream)
 {
-    Matrix22<int> a(1, 2, 3, 4);
+    Matrix22<double> a(1.123, 2.123, 3.123, 4.123);
     std::stringstream ss;
     ss << a;
-    EXPECT_EQ(ss.str(), "1 2\n3 4");
+    EXPECT_EQ(ss.str(), "1.1230000000 2.1230000000\n3.1230000000 4.1230000000");
 }
 
 TEST (Matrix22_test, istream)

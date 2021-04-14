@@ -13,9 +13,9 @@ TEST (Vector2D_test, equal_operator)
     EXPECT_TRUE(a == Vector2D<int>(1, 2));
     EXPECT_FALSE(a == Vector2D<int>(1, 3));
 
-    Vector2D<double> b(1.0001, 5.0002);
-    EXPECT_TRUE(b == Vector2D<double>(1.0003, 5.0001));
-    EXPECT_FALSE(b == Vector2D<double>(1.0003, 4.0001));
+    Vector2D<double> b(1, 5);
+    EXPECT_TRUE(b == Vector2D<double>(1.00000000000000003, 5.00000000000000000000001));
+    EXPECT_FALSE(b == Vector2D<double>(1.0000000000000003, 4.00000000000000001));
 }
 
 TEST (Vector2D_test, constructor)
@@ -71,19 +71,19 @@ TEST (Vector2D_test, diff_operator)
 
 TEST (Vector2D_test, ostream)
 {
-    Vector2D<int> a(2, 2);
+    Vector2D<double> a(2, 2);
     std::stringstream ss;
     ss << a;
-    EXPECT_EQ(ss.str(), "2 2");
+    EXPECT_EQ(ss.str(), "2.0000000000 2.0000000000");
 }
 
 TEST (Vector2D_test, istream)
 {
-    Vector2D<int> a;
+    Vector2D<double> a;
     std::stringstream ss;
     ss << "1 2";
     ss >> a;
-    EXPECT_EQ(a, Vector2D<int>(1, 2));
+    EXPECT_EQ(a, Vector2D<double>(1, 2));
 
     Vector2D<double> b;
     ss = std::stringstream();
